@@ -79,25 +79,25 @@ void makeMove(int upDistance, int frontDistance, int frontLeftDistance, int fron
   // <-- LEFT / RIGHT MOVE -->
   if(leftDistance<securityDistance && rightDistance> securityDistance)  // if it's to low
   { result[2]='6'; }//than go up
-  if else (leftDistance<securityDistance && rightDistance<=securityDistance) // if it's to low and to close to the ceiling
+  else if(leftDistance<securityDistance && rightDistance<=securityDistance) // if it's to low and to close to the ceiling
   {
      if (leftDistance > rightDistance + distanceMargin) {result[2]='4';}   //if there is more place down  -> go down
      else if (leftDistance+ distanceMargin <rightDistance) {result[2]='6';} // if there is more place up -> go up
      else {result[2]='5';}  // else stay still
   }
-  if else(rightDistance < securityDistance) // if it is high and there is small distance to the ceiling
+  else if(rightDistance < securityDistance) // if it is high and there is small distance to the ceiling
       {result[2]='4';}  //than go up
   
   // <-- UP / DOWN MOVE -->
   if(downDistance<securityDistance && upDistance> securityDistance)  // if it's to low
   {  result[3]='6'; }//than go up
-  if else (downDistance<securityDistance && upDistance<=securityDistance) // if it's to low and to close to the ceiling
+  else if(downDistance<securityDistance && upDistance<=securityDistance) // if it's to low and to close to the ceiling
   {
      if (downDistance > upDistance + distanceMargin) {result[3]='4';}   //if there is more place down  -> go down
      else if (downDistance+ distanceMargin <upDistance) {result[3]='6';} // if there is more place up -> go up
      else {result[3]='5';}  // else stay still
   }
-  if else(upDistance < securityDistance) // if it is high and there is small distance to the ceiling
+  else if(upDistance < securityDistance) // if it is high and there is small distance to the ceiling
   {result[3]='4';}  //than go up
   
   Serial1.print(result);
