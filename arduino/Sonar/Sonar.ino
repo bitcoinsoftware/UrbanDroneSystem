@@ -70,35 +70,35 @@ void makeMove(int upDistance, int frontDistance, int frontLeftDistance, int fron
   char result[] ="5555";
   
   // <-- ROTATION LEFT / ROTATION RIGHT -->
-  if (frontLeftDistance> frontRightDistance + distanceMargin)      {result[0]="4";} // rotate left
-  else if (frontRightDistance > frontLeftDistance + distanceMargin){result[0]="6";} //rotate right
+  if (frontLeftDistance> frontRightDistance + distanceMargin)      {result[0]='4';} // rotate left
+  else if (frontRightDistance > frontLeftDistance + distanceMargin){result[0]='6';} //rotate right
 
   // <-- FRONT / BACK -->
-  if (frontDistance< securityDistance)     {result[1]="4";}  //than go back
+  if (frontDistance< securityDistance)     {result[1]='4';}  //than go back
   
   // <-- LEFT / RIGHT MOVE -->
   if(leftDistance<securityDistance && rightDistance> securityDistance)  // if it's to low
-  { result[2]="5556"; }//than go up
+  { result[2]='6'; }//than go up
   if else (leftDistance<securityDistance && rightDistance<=securityDistance) // if it's to low and to close to the ceiling
   {
-     if (leftDistance > rightDistance + distanceMargin) {result[2]="4";}   //if there is more place down  -> go down
-     else if (leftDistance+ distanceMargin <rightDistance) {result[2]="6";} // if there is more place up -> go up
-     else {result[2]="5";}  // else stay still
+     if (leftDistance > rightDistance + distanceMargin) {result[2]='4';}   //if there is more place down  -> go down
+     else if (leftDistance+ distanceMargin <rightDistance) {result[2]='6';} // if there is more place up -> go up
+     else {result[2]='5';}  // else stay still
   }
   if else(rightDistance < securityDistance) // if it is high and there is small distance to the ceiling
-      {result[2]="4";}  //than go up
+      {result[2]='4';}  //than go up
   
   // <-- UP / DOWN MOVE -->
   if(downDistance<securityDistance && upDistance> securityDistance)  // if it's to low
-  {  result[3]="6"; }//than go up
+  {  result[3]='6'; }//than go up
   if else (downDistance<securityDistance && upDistance<=securityDistance) // if it's to low and to close to the ceiling
   {
-     if (downDistance > upDistance + distanceMargin) {result[3]="4";}   //if there is more place down  -> go down
-     else if (downDistance+ distanceMargin <upDistance) {result[3]="6";} // if there is more place up -> go up
-     else {result[3]="5";}  // else stay still
+     if (downDistance > upDistance + distanceMargin) {result[3]='4';}   //if there is more place down  -> go down
+     else if (downDistance+ distanceMargin <upDistance) {result[3]='6';} // if there is more place up -> go up
+     else {result[3]='5';}  // else stay still
   }
   if else(upDistance < securityDistance) // if it is high and there is small distance to the ceiling
-  {result[3]="4";}  //than go up
+  {result[3]='4';}  //than go up
   
   Serial1.print(result);
   Serial.print(result);  
@@ -128,7 +128,7 @@ void loop()
      frontRightDistance = getHCSRdistance(trigPinFright, echoPinFright);
      leftDistance = getHCSRdistance(trigPinLeft, echoPinLeft);
      rightDistance = getHCSRdistance(trigPinRight, echoPinRight);
-    iteration=iteration+1;
+     iteration=iteration+1;
   }
   else
   {
