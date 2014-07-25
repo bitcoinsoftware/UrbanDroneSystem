@@ -1,7 +1,7 @@
 __author__ = 'loziuk'
 
 
-import sys , argparse
+import sys , argparse, time
 from socket import socket, AF_INET, SOCK_DGRAM
 
 class Communication:
@@ -18,15 +18,19 @@ class Communication:
 
     def receiveData(self):
         return con.mySocket.recvfrom(self.packetSize)
-"""
-while True:
-        self.mySocket.sendto('cool',(SERVER_IP,PORT_NUMBER))
-sys.exit()
-"""
+
+
 if __name__ == "__main__":
-    con = Communication()
+    parser = argparse.ArgumentParser()
+    parser.add_argument("-i", "--ip", type=str, help="ip address")
+    parser.add_argument("-p", '--port', help="port number (default 1111)", nargs='?', const=1111, type=int)
+    parser.add_argument("-s", '--packetsize', help="packet size (default 1024 B)", nargs='?', const=1024, type=int)
+    args = parser.parse_args()
+    con = Communication(args['ip'], args['port'], args['packetsize'])
+
     while 1:
-        (data,addr) = con.receiveData();
-        print "START"+data+"STOP";
+        (data,addr) = con.receiveData()
+        print "START"+data+"STOP"
         con.interpretData(data)
+
 
