@@ -15,68 +15,17 @@
 #define mb1240PinDown A0
 #define movingAveragePeriod 8
 
-/*output values:
-000 - forward
-001 - left
-002 - right
-003 - back 
-004 - stay still
-005 - down
-006 - go up
-007 - forward left
-008 - forward right
-*/
-
 int securityDistance = 70;
+int distanceMargin =10;
 int loopDelay = 50;
 
-long maximumRange = 300; // Maximum range needed
-long minimumRange = 5; // Minimum range needed
-/*
-QueueArray <double> downMAArray;     QueueArray <double> upMAArray; 
-QueueArray <double> frontMAArray;    QueueArray <double> frontLeftMAArray;   QueueArray <double> frontRightMAArray;
-QueueArray <double> leftMAArray;     QueueArray <double> rightMAArray;
-*/
+long maximumRangeHCSR04 = 300; // Maximum range needed
+long minimumRangeHCSR04 = 5; // Minimum range needed
+
 double downDistance, upDistance, frontDistance, frontLeftDistance, frontRightDistance, leftDistance, rightDistance;
 double multiplier; // used for counting moving average
 
 int iteration =0;
-void goForward()
-{Serial1.print("000");
- Serial.print("000");}
-
-void goLeft()
-{Serial1.print("001");
- Serial.print("001");}
-
-void goRight()
-{Serial1.print("002");
- Serial.print("002");}
-
-void goBack()
-{Serial1.print("003");
- Serial.print("003");}
-
-void stayStill()
-{Serial1.print("004");
- Serial.print("004");}
-
-void goDown()
-{Serial1.print("005");
- Serial.print("005");}
-
-void goUp()
-{Serial1.print("006");
- Serial.print("006");}
-
-void goForwardLeft()
-{Serial1.print("007");
- Serial.print("007");}
-
-void goForwardRight()
-{Serial1.print("008");
- Serial.print("008");}
-
 
 double getMB1240Distance( int analogPin)
 {
@@ -93,18 +42,17 @@ double getMB1240Distance( int analogPin)
 
 double getHCSRdistance(int trig, int echo)
 {
-   //HC-SR04
    digitalWrite(trig, LOW); 
    delayMicroseconds(2); 
    digitalWrite(trig, HIGH);
    delayMicroseconds(10); 
    digitalWrite(trig, LOW);
    long distance = pulseIn(echo, HIGH, 10000)/58.2;
-   if (distance >= maximumRange || distance ==0)
+   if (distance >= maximumRangeHCSR04 || distance ==0)
    {
-     return maximumRange;
+     return maximumRangeHCSR04;
    }
-   else if (distance < minimumRange)
+   else if (distance < minimumRangeHCSR04)
    {
      return 0;
    } 
@@ -117,6 +65,45 @@ void printDistances(int upDistance, int frontDistance, int frontLeftDistance, in
    Serial.print(" RIGHT "); Serial.println(rightDistance);
 }
 
+void makeMove(int upDistance, int frontDistance, int frontLeftDistance, int frontRightDistance, int leftDistance, int rightDistance, int downDistance)
+{
+  char result[] ="5555";
+  
+  // <-- ROTATION LEFT / ROTATION RIGHT -->
+  if (frontLeftDistance> frontRightDistance + distanceMargin)      {result[0]="4";} // rotate left
+  else if (frontRightDistance > frontLeftDistance + distanceMargin){result[0]="6";} //rotate right
+
+  // <-- FRONT / BACK -->
+  if (frontDistance< securityDistance)     {result[1]="4";}  //than go back
+  
+  // <-- LEFT / RIGHT MOVE -->
+  if(leftDistance<securityDistance && rightDistance> securityDistance)  // if it's to low
+  { result[2]="5556"; }//than go up
+  if else (leftDistance<securityDistance && rightDistance<=securityDistance) // if it's to low and to close to the ceiling
+  {
+     if (leftDistance > rightDistance + distanceMargin) {result[2]="4";}   //if there is more place down  -> go down
+     else if (leftDistance+ distanceMargin <rightDistance) {result[2]="6";} // if there is more place up -> go up
+     else {result[2]="5";}  // else stay still
+  }
+  if else(rightDistance < securityDistance) // if it is high and there is small distance to the ceiling
+      {result[2]="4";}  //than go up
+  
+  // <-- UP / DOWN MOVE -->
+  if(downDistance<securityDistance && upDistance> securityDistance)  // if it's to low
+  {  result[3]="6"; }//than go up
+  if else (downDistance<securityDistance && upDistance<=securityDistance) // if it's to low and to close to the ceiling
+  {
+     if (downDistance > upDistance + distanceMargin) {result[3]="4";}   //if there is more place down  -> go down
+     else if (downDistance+ distanceMargin <upDistance) {result[3]="6";} // if there is more place up -> go up
+     else {result[3]="5";}  // else stay still
+  }
+  if else(upDistance < securityDistance) // if it is high and there is small distance to the ceiling
+  {result[3]="4";}  //than go up
+  
+  Serial1.print(result);
+  Serial.print(result);  
+}
+
 void setup() {
   Serial1.begin(9600);
   Serial.begin(9600);
@@ -126,15 +113,12 @@ void setup() {
   pinMode(trigPinFright, OUTPUT);   pinMode(echoPinFright, INPUT);
   pinMode(trigPinLeft, OUTPUT);     pinMode(echoPinLeft, INPUT);
   pinMode(trigPinRight, OUTPUT);    pinMode(echoPinRight, INPUT);
-  
   pinMode(mb1240PinDown, INPUT);
-  
   multiplier = (movingAveragePeriod-1)/movingAveragePeriod;
 }
 
-
-
-void loop() {
+void loop() 
+{
   if (iteration<movingAveragePeriod) 
   {
      downDistance = getMB1240Distance(mb1240PinDown);
@@ -158,35 +142,6 @@ void loop() {
   }
 
    printDistances( upDistance, frontDistance, frontLeftDistance, frontRightDistance, leftDistance, rightDistance, downDistance);
- 
-   if (upDistance< securityDistance && downDistance > securityDistance)
-   {  goDown();}
-   else if (downDistance < securityDistance && upDistance > securityDistance)
-   {  goUp();}
-   else if (frontDistance== maximumRange)
-   {
-     if (leftDistance>rightDistance+ securityDistance)
-      {  goLeft();}
-     else if (rightDistance> leftDistance+ securityDistance)
-      {  goRight();}
-     else
-      { goForward();} 
-   }
-   else if (frontDistance< maximumRange)
-   {
-      if (frontDistance < securityDistance)
-      {  goBack();}
-      else
-      {
-        if (frontLeftDistance > frontRightDistance && leftDistance> securityDistance)
-        {  goForwardLeft();}
-        else if (frontRightDistance > frontLeftDistance && rightDistance> securityDistance)
-        {  goForwardRight();}
-        else
-        {  stayStill();}   
-      }
-   }
-
+   makeMove(upDistance, frontDistance, frontLeftDistance, frontRightDistance, leftDistance, rightDistance, downDistance);
    delay(loopDelay);
-
 }
