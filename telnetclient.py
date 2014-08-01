@@ -73,5 +73,5 @@ class TelnetClient:
             pygame.display.set_caption("FPS: %.2f" % clock.get_fps())
 
 
-a = TelnetClient("localhost", 51234)
+a = TelnetClient("192.168.2.102", 51234)
 a.steering()
