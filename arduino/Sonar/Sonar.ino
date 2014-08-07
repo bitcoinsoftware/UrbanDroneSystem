@@ -14,7 +14,7 @@
 #define trigPinRight 12
 #define echoPinRight 13
 #define mb1240PinDown A0
-#define movingAveragePeriod 8
+#define movingAveragePeriod 16
 
 ///////PPM SEND//////
 #define chanel_number 8  
@@ -484,3 +484,4 @@ ISR(TIMER3_COMPA_vect){  //leave this alone
     }     
   }
 }
+
