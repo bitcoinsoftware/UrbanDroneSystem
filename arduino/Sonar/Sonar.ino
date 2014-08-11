@@ -1,4 +1,4 @@
-#include <QueueArray.h>
+  #include <QueueArray.h>
 
 //////SONARY//////
 #define trigPinUp A2 
@@ -14,7 +14,7 @@
 #define trigPinRight 12
 #define echoPinRight 13
 #define mb1240PinDown A0
-#define movingAveragePeriod 16
+#define movingAveragePeriod 2
 
 ///////PPM SEND//////
 #define chanel_number 8  
@@ -22,7 +22,7 @@
 #define PPM_FrLen 22500  
 #define PPM_PulseLen 300  
 #define onState 1 
-#define sigPin A3
+#define sigPin A4
 
 //////PPM READ//////
 #define PPM_Pin 2  //this must be 2 or 3
@@ -64,9 +64,9 @@ int loopDelay = 50;
 
 long maximumRangeHCSR04 = 300; // Maximum range needed
 long minimumRangeHCSR04 = 5; // Minimum range needed
-
+long startDistance = 150;
 double downDistance, upDistance, frontDistance, frontLeftDistance, frontRightDistance, leftDistance, rightDistance;
-double multiplier; // used for counting moving average
+double multiplier = 0.7; // used for counting moving average
 
 int iteration =0;
 
@@ -90,7 +90,6 @@ void setup() {
   pinMode(trigPinLeft, OUTPUT);     pinMode(echoPinLeft, INPUT);
   pinMode(trigPinRight, OUTPUT);    pinMode(echoPinRight, INPUT);
   pinMode(mb1240PinDown, INPUT);
-  multiplier = (movingAveragePeriod-1)/movingAveragePeriod;
   
   for(int i=0; i<chanel_number; i++){
     PpmWrite[i]= default_servo_value;
@@ -158,11 +157,11 @@ void loop()
        SerialCommand[2] = SerialReadCommand[2]-48;
        SerialCommand[3] = SerialReadCommand[3]-48;
        SerialCommand[4] = SerialReadCommand[4]-48;
-       Serial1.print(SerialCommand[0]);
-       Serial1.print(SerialCommand[1]);
-       Serial1.print(SerialCommand[2]);
-       Serial1.print(SerialCommand[3]);
-       Serial1.println(SerialCommand[4]);
+      // Serial1.print(SerialCommand[0]);
+      // Serial1.print(SerialCommand[1]);
+      // Serial1.print(SerialCommand[2]);
+      // Serial1.print(SerialCommand[3]);
+      // Serial1.println(SerialCommand[4]);
        
   }
   else
@@ -179,23 +178,24 @@ void loop()
   if (iteration<movingAveragePeriod) 
   {
      downDistance = getMB1240Distance(mb1240PinDown);
-     upDistance =getHCSRdistance(trigPinUp, echoPinUp);
-     frontDistance = getHCSRdistance(trigPinFront, echoPinFront);
-     frontLeftDistance = getHCSRdistance(trigPinFleft, echoPinFleft);
-     frontRightDistance = getHCSRdistance(trigPinFright, echoPinFright);
-     leftDistance = getHCSRdistance(trigPinLeft, echoPinLeft);
-     rightDistance = getHCSRdistance(trigPinRight, echoPinRight);
+     upDistance =getHCSRdistance(trigPinUp, echoPinUp, startDistance);
+     frontDistance = getHCSRdistance(trigPinFront, echoPinFront, startDistance);
+     frontLeftDistance = getHCSRdistance(trigPinFleft, echoPinFleft, startDistance);
+     frontRightDistance = getHCSRdistance(trigPinFright, echoPinFright, startDistance);
+     leftDistance = getHCSRdistance(trigPinLeft, echoPinLeft, startDistance);
+     rightDistance = getHCSRdistance(trigPinRight, echoPinRight, startDistance);
      iteration=iteration+1;
   }
   else
   {
      downDistance = downDistance*multiplier + getMB1240Distance(mb1240PinDown)*(1-multiplier);
-     upDistance = upDistance*multiplier + getHCSRdistance(trigPinUp, echoPinUp)*(1-multiplier);
-     frontDistance = frontDistance*multiplier + getHCSRdistance(trigPinFront, echoPinFront)*(1-multiplier);
-     frontLeftDistance = frontLeftDistance*multiplier + getHCSRdistance(trigPinFleft, echoPinFleft)*(1-multiplier);
-     frontRightDistance = frontRightDistance*multiplier + getHCSRdistance(trigPinFright, echoPinFright)*(1-multiplier);
-     leftDistance = leftDistance*multiplier + getHCSRdistance(trigPinLeft, echoPinLeft)*(1-multiplier);
-     rightDistance = rightDistance*multiplier + getHCSRdistance(trigPinRight, echoPinRight)*(1-multiplier);
+     upDistance = upDistance*multiplier + getHCSRdistance(trigPinUp, echoPinUp, upDistance)*(1-multiplier);
+     frontDistance = frontDistance*multiplier + getHCSRdistance(trigPinFront, echoPinFront, frontDistance)*(1-multiplier);
+     frontLeftDistance = frontLeftDistance*multiplier + getHCSRdistance(trigPinFleft, echoPinFleft, frontLeftDistance)*(1-multiplier);
+     frontRightDistance = frontRightDistance*multiplier + getHCSRdistance(trigPinFright, echoPinFright, frontRightDistance)*(1-multiplier);
+     leftDistance = leftDistance*multiplier + getHCSRdistance(trigPinLeft, echoPinLeft, leftDistance)*(1-multiplier);
+     rightDistance = rightDistance*multiplier + getHCSRdistance(trigPinRight, echoPinRight, rightDistance)*(1-multiplier);
+     Serial1.println(multiplier);
   }
 
    printDistances( upDistance, frontDistance, frontLeftDistance, frontRightDistance, leftDistance, rightDistance, downDistance);
@@ -207,13 +207,13 @@ void loop()
    
    
       int count;
-  Serial1.print("\n");
+  //Serial1.print("\n");
   while(PpmRead[count] != 0){  //print out the servo values
-    Serial1.print(PpmRead[count]);
-    Serial1.print("  ");
+    //Serial1.print(PpmRead[count]);
+    //Serial1.print("  ");
     count++;
   }
-  Serial1.print("\n");
+  //Serial1.print("\n");
   delay(loopDelay);
 }
 
@@ -235,7 +235,7 @@ double getMB1240Distance( int analogPin)
 }
 
 /////SONARY HCS////////
-double getHCSRdistance(int trig, int echo)
+double getHCSRdistance(int trig, int echo, int prevResult)
 {
    digitalWrite(trig, LOW); 
    delayMicroseconds(2); 
@@ -243,14 +243,14 @@ double getHCSRdistance(int trig, int echo)
    delayMicroseconds(10); 
    digitalWrite(trig, LOW);
    long distance = pulseIn(echo, HIGH, 10000)/58.2;
-   if (distance >= maximumRangeHCSR04 || distance ==0)
+   if (distance >= maximumRangeHCSR04)
    {
      return maximumRangeHCSR04;
    }
-   else if (distance < minimumRangeHCSR04)
+   else if (distance < minimumRangeHCSR04 )
    {
-     return 0;
-   } 
+    return prevResult; 
+   }
    return distance; 
 }
 
@@ -273,7 +273,7 @@ void makeMove(int upDistance, int frontDistance, int frontLeftDistance, int fron
   else if (frontRightDistance > frontLeftDistance + distanceMarginYaw){result[0]='6';} //rotate right
 
   // <-- FRONT / BACK -->
-  if (frontDistance< securityDistance)     {result[1]='4';}  //than go back
+  if (frontDistance< securityDistance)     {result[1]='6';}  //than go back
   
   // <-- LEFT / RIGHT MOVE -->
   if(leftDistance<securityDistance && rightDistance> securityDistance)  // if it's to low
@@ -298,8 +298,8 @@ void makeMove(int upDistance, int frontDistance, int frontLeftDistance, int fron
   }
   else if (upDistance < securityDistance) // if it is high and there is small distance to the ceiling
   {result[3]='4';}  //than go up
-  Serial1.print(result); 
-  Serial1.print("\n");  
+  //Serial1.print(result); 
+  //Serial1.print("\n");  
  
  
   
@@ -378,8 +378,8 @@ void Yaw(int signal)
 {  
   PpmWrite[YAW] = value;
 }
-  Serial1.print("Yaw: ");
-  Serial1.println(value);
+  //Serial1.print("Yaw: ");
+ // Serial1.println(value);
   }
   
 void Pitch(int signal)
@@ -395,8 +395,8 @@ void Pitch(int signal)
 {   
   PpmWrite[PITCH] = value;
 }
-  Serial1.print("Pitch: ");
-  Serial1.println(value);
+  //Serial1.print("Pitch: ");
+  //Serial1.println(value);
   }
   
 void Roll(int signal)
@@ -412,8 +412,8 @@ if(PpmRead[ROLL] > 1500+SecurityPPM | PpmRead[ROLL] < 1500-SecurityPPM)
 {     
   PpmWrite[ROLL] = value;
 }
-  Serial1.print("Roll: ");
-  Serial1.println(value);
+  //Serial1.print("Roll: ");
+  //Serial1.println(value);
   }
   
 void Throttle(int signal)
@@ -429,8 +429,8 @@ if(PpmRead[THROTTLE] > 1500+SecurityPPM | PpmRead[THROTTLE] < 1500-SecurityPPM)
 {  
   PpmWrite[THROTTLE] = value;
 }
-  Serial1.print("Throttle: ");
-  Serial1.println(value);
+  //Serial1.print("Throttle: ");
+  //Serial1.println(value);
   }
   
 void read_ppm(){  //leave this alone
@@ -484,4 +484,3 @@ ISR(TIMER3_COMPA_vect){  //leave this alone
     }     
   }
 }
-
