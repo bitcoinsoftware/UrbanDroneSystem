@@ -1,24 +1,29 @@
 #avconv -r 25 -s 160x128 -f video4linux2 -i /dev/video0 http://127.0.0.1:8090/feed1.ffm
 #ffserver -d -f ffserver.conf
 
-import socket, threading, cv2, serial
+import socket, threading, cv2, serial, argparse
 
-HOST = ''
-PORT = 51234
 SERIAL = "/dev/ttyACM99"
+
+if __name__=="__main__":
+    parser = argparse.ArgumentParser()
+    parser.add_argument("-v", "--videosource", type=str, help="proccess a video source")
+    parser.add_argument("-g", "--graphical", help="display video", action="store_true")
+    parser.add_argument("-p", "--port", type=int, help="port number")
+    args = parser.parse_args()
 
 try:
     ser = serial.Serial(SERIAL, 9600, timeout=1)
 except:
     print("Could not open serial "+SERIAL);
 s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-s.bind((HOST, PORT))
+s.bind(('', args.port))
 s.listen(4)
 clients = [] #list of clients connected
 lock = threading.Lock()
 
 
-class chatServer(threading.Thread):
+class DroneServer(threading.Thread):
     def __init__(self, (socket,address)):
         threading.Thread.__init__(self)
         self.socket = socket
@@ -29,9 +34,13 @@ class chatServer(threading.Thread):
         clients.append(self)
         lock.release()
         print '%s:%s connected.' % self.address
+        videocapture = cv2.VideoCapture(0)
+        print videocapture.isOpened()
         while True:
+            self.rval, frame = videocapture.read()
             data = self.socket.recv(1024)
-            print data
+            if data=="FOLLOWLINE":
+                print data
             if not data:
                 break
             for c in clients:
@@ -49,4 +58,4 @@ class chatServer(threading.Thread):
 
 while True: # wait for socket to connect
     # send socket to chatserver and start monitoring
-    chatServer(s.accept()).start()
+    DroneServer(s.accept()).start()
