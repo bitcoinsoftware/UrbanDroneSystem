@@ -66,7 +66,7 @@ long maximumRangeHCSR04 = 300; // Maximum range needed
 long minimumRangeHCSR04 = 5; // Minimum range needed
 long startDistance = 150;
 double downDistance, upDistance, frontDistance, frontLeftDistance, frontRightDistance, leftDistance, rightDistance;
-double multiplier = 0.7; // used for counting moving average
+double multiplier = 0.55; // used for counting moving average
 
 int iteration =0;
 
