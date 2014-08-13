@@ -57,7 +57,7 @@
 //Command[3] - Throttle (Down < 5 < Up)
 
 /////SONARY////
-int securityDistance = 70;
+int securityDistance = 110;
 int distanceMargin = 10;
 int distanceMarginYaw = 100;
 int loopDelay = 50;
