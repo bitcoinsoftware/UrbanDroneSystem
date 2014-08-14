@@ -10,9 +10,12 @@ class DroneClient:
         self.speed=1
         
         self.videoSocket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        self.videoSocket.bind(('127.0.0.1', videoPort))
+        #self.videoSocket = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+        self.videoSocket.bind(('', videoPort))
         self.videoSocket.listen(True)
         self.videoConn, self.videoAddr = self.videoSocket.accept()
+        
+        self.displaySize = (640, 480)
 
     def steer(self, params):
         params=''.join([str(x) for x in params]) 
@@ -30,8 +33,8 @@ class DroneClient:
     def steering(self):
         pygame.init()
         clock = pygame.time.Clock()
-        W, H = 640, 480
-        screen = pygame.display.set_mode((W, H))
+        
+        screen = pygame.display.set_mode(self.displaySize)
         image=pygame.image.load("videoIcon.png")
         screen.blit(image,(0,0)) # "show image" on the screen
         pygame.display.update()
@@ -39,13 +42,13 @@ class DroneClient:
         running = True
         result=self.neutral[:]
         while running:
-            #image = self.getVideoData()
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     running = False 
                 elif event.type == pygame.KEYUP:
                     result=self.neutral[:]
                 elif event.type == pygame.KEYDOWN:
+                    
                     if event.key == pygame.K_ESCAPE:
                         running = False
                         result="EXIT"
@@ -99,26 +102,31 @@ class DroneClient:
                         result="PRINTRESULTS"
                     elif event.key ==pygame.K_g:
                         result="GRAPHICAL"
-                        
+                    elif event.key ==pygame.K_l:
+                        result="MARKERLANDINGMODE"
                     self.steer(result)
-            
-            
+           
             length = self.recvall(self.videoConn,16)
             if length == None:
                 break
             stringData = self.recvall(self.videoConn, int(length))
             data = numpy.fromstring(stringData, dtype='uint8')
-            decimg=cv2.imdecode(data,1)
-            frame2=cv2.cvtColor(decimg,cv2.COLOR_BGR2RGB)
-            frame2=numpy.rot90(frame2)
-            surface=pygame.surfarray.make_surface(frame2)
+            decimg=cv2.imdecode(data,cv2.CV_LOAD_IMAGE_UNCHANGED)
+            cv2.imshow('frame',decimg)
             
-
-            screen.blit(surface,(0,0))
-            pygame.display.update()
-            serverResponse = self.tn.read_eager()
-            if(serverResponse):
-                print serverResponse
+            #decimg = cv2.resize(decimg,self.displaySize) 
+            #frame2=cv2.cvtColor(decimg,cv2.COLOR_BGR2RGB)
+            #frame2=numpy.rot90(frame2)
+            #surface=pygame.surfarray.make_surface(frame2)
+            #screen.blit(surface,(0,0))
+            #pygame.display.update()
+            
+            if cv2.waitKey(1) & 0xFF == ord('q'):
+                break
+            if result!="EXIT":
+                serverResponse = self.tn.read_eager()
+                if(serverResponse):
+                    print serverResponse
             pygame.display.flip()
             clock.tick(50)
             pygame.display.set_caption("FPS: %.2f" % clock.get_fps())
