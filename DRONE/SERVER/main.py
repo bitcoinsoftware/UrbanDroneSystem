@@ -24,7 +24,7 @@ s.listen(4)
 clients = [] #list of clients connected
 lock = threading.Lock()
 
-
+runServer = True
 
 class DroneServer(threading.Thread):
     def __init__(self, (sock,address), videoIndex, videoPort):
@@ -36,18 +36,17 @@ class DroneServer(threading.Thread):
         self.flags={}
         self.flags['opticalFlow'], self.flags['followLine'], self.flags['printResults']= None, None, None
         self.flags['bluetoothLandingMode'], self.flags['followLineRunning'], self.flags['displayImage']=None, None, None
+        self.flags['markerlanding']= None
 
         self.videoIndex = int(videoIndex)
         self.videoSock = socket.socket()
-        self.videoSock.connect(('127.0.0.1', int(videoPort)))
-        self.encode_param=[int(cv2.IMWRITE_JPEG_QUALITY),90]
-        
-        """
-        self.videoSocket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        self.videoSocket.bind(('', videoPort))
-        self.videoSocket.listen(4)"""
+        #self.videoSock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+        #self.videoSock.connect(('127.0.0.1', int(videoPort)))
+        self.videoSock.connect((address[0], int(videoPort)))
+        self.encode_param=[int(cv2.IMWRITE_JPEG_QUALITY),70]
 
     def run(self):
+        global runServer
         lock.acquire()
         clients.append(self)
         lock.release()
@@ -63,12 +62,11 @@ class DroneServer(threading.Thread):
             lf= LineFollower.LineFollower(h,w,0.5)
             
             wp = WifiPower.WifiPower('wlan0')
-            hc = HoughCircles.HoughCircles(h,w,1)
+            hc = HoughCircles.HoughCircles(h,w,0.7)
             availableCommands = ['EXIT', 'FOLLOWLINE', 'OPTICALFLOWSTABILISATION', 'BLUETOOTHLANDINGMODE', 
-                                    'PRINTRESULTS','GRAPHICAL', None]
+                                    'PRINTRESULTS','GRAPHICAL', 'MARKERLANDINGMODE', None]
             while True:
                 rval, frame = videocapture.read()
-                #self.videoSocket.send(frame.tostring())
                 ready = select.select([self.socket], [], [], 0.0001)
                 if ready[0]:
                     data = self.socket.recv(1024)
@@ -76,6 +74,9 @@ class DroneServer(threading.Thread):
                     data=None
                 if data=="EXIT":
                     break
+                #if data=="STOPSERVER":
+                #    runServer=None
+                #    break
                 elif data=="FOLLOWLINE":
                     if self.flags['followLine']==None:
                         self.flags['followLine']=True
@@ -101,6 +102,11 @@ class DroneServer(threading.Thread):
                         self.flags['displayImage']=True
                     else:
                         self.flags['displayImage']=None
+                elif data=="MARKERLANDINGMODE":
+                    if self.flags['markerlanding']==None:
+                        self.flags['markerlanding']=True
+                    else:
+                        self.flags['markerlanding']=None
 
                 if self.flags['followLine']==True:
                     # sending an argument to the line analysis process
@@ -110,6 +116,9 @@ class DroneServer(threading.Thread):
                         if wp.isCloseToAP() and hc.findCircles(frame)!=None: #when wifi is strong , stop searching for the line and start looking for the platform
                             self.flags['followLine']=None
                 elif self.flags['bluetoothLandingMode']==True and self.flags['followLine']==None: #start landing
+                    circles = hc.findCircles(frame)
+                    data = hc.getDirections(circles)
+                elif self.flags['markerlanding']==True:
                     circles = hc.findCircles(frame)
                     data = hc.getDirections(circles)
                     
@@ -144,6 +153,6 @@ class DroneServer(threading.Thread):
         lock.release()
         
 if __name__ == '__main__':
-    while True: # wait for socket to connect
+    while runServer!=None: # wait for socket to connect
         # send socket to chatserver and start monitoring
         DroneServer(s.accept(), args.videosource, args.videoport).start()

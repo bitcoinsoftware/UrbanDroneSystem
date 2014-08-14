@@ -8,7 +8,7 @@ class HoughCircles:
 
     def findCircles(self, frame):
         if self.scale!=1:
-            frame = cv2.resize(frame, (int(w*self.scale), int(h*self.scale)))
+            frame = cv2.resize(frame, (int(self.w*self.scale), int(self.h*self.scale)))
         frame = cv2.medianBlur(frame,5)
         frame = cv2.cvtColor(frame,cv2.COLOR_BGR2GRAY)
         circles = cv2.HoughCircles(frame,cv2.cv.CV_HOUGH_GRADIENT,1,10,param1=100,param2=30,minRadius=5,maxRadius=35)
