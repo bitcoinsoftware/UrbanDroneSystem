@@ -1,0 +1,1837 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="windowModality">
+   <enum>Qt::NonModal</enum>
+  </property>
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>1375</width>
+    <height>779</height>
+   </rect>
+  </property>
+  <property name="font">
+   <font>
+    <pointsize>10</pointsize>
+   </font>
+  </property>
+  <property name="windowTitle">
+   <string>RoboClient</string>
+  </property>
+  <property name="tabShape">
+   <enum>QTabWidget::Rounded</enum>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <widget class="QFrame" name="frame_6">
+    <property name="enabled">
+     <bool>true</bool>
+    </property>
+    <property name="geometry">
+     <rect>
+      <x>0</x>
+      <y>0</y>
+      <width>1280</width>
+      <height>480</height>
+     </rect>
+    </property>
+    <property name="frameShape">
+     <enum>QFrame::StyledPanel</enum>
+    </property>
+    <property name="frameShadow">
+     <enum>QFrame::Raised</enum>
+    </property>
+    <widget class="QLabel" name="label_14">
+     <property name="geometry">
+      <rect>
+       <x>0</x>
+       <y>0</y>
+       <width>640</width>
+       <height>480</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+     <property name="pixmap">
+      <pixmap>videoIcon.png</pixmap>
+     </property>
+     <property name="scaledContents">
+      <bool>true</bool>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_15">
+     <property name="geometry">
+      <rect>
+       <x>640</x>
+       <y>0</y>
+       <width>640</width>
+       <height>480</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+     <property name="pixmap">
+      <pixmap>videoIcon.png</pixmap>
+     </property>
+     <property name="scaledContents">
+      <bool>true</bool>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignJustify|Qt::AlignVCenter</set>
+     </property>
+    </widget>
+   </widget>
+   <widget class="QGroupBox" name="groupBox_5">
+    <property name="geometry">
+     <rect>
+      <x>0</x>
+      <y>560</y>
+      <width>231</width>
+      <height>61</height>
+     </rect>
+    </property>
+    <property name="title">
+     <string>Sensors</string>
+    </property>
+    <widget class="QListWidget" name="listWidget">
+     <property name="geometry">
+      <rect>
+       <x>0</x>
+       <y>20</y>
+       <width>231</width>
+       <height>41</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>8</pointsize>
+      </font>
+     </property>
+    </widget>
+   </widget>
+   <widget class="QGroupBox" name="groupBox_7">
+    <property name="geometry">
+     <rect>
+      <x>0</x>
+      <y>480</y>
+      <width>231</width>
+      <height>81</height>
+     </rect>
+    </property>
+    <property name="title">
+     <string>Robot</string>
+    </property>
+    <widget class="QFrame" name="frame_2">
+     <property name="geometry">
+      <rect>
+       <x>0</x>
+       <y>20</y>
+       <width>231</width>
+       <height>61</height>
+      </rect>
+     </property>
+     <property name="frameShape">
+      <enum>QFrame::StyledPanel</enum>
+     </property>
+     <property name="frameShadow">
+      <enum>QFrame::Raised</enum>
+     </property>
+     <widget class="QLabel" name="label_7">
+      <property name="geometry">
+       <rect>
+        <x>0</x>
+        <y>0</y>
+        <width>51</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>9</pointsize>
+       </font>
+      </property>
+      <property name="text">
+       <string>Host ip:</string>
+      </property>
+     </widget>
+     <widget class="QLineEdit" name="lineEdit">
+      <property name="geometry">
+       <rect>
+        <x>60</x>
+        <y>0</y>
+        <width>91</width>
+        <height>21</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>9</pointsize>
+       </font>
+      </property>
+      <property name="text">
+       <string>127.0.0.1</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_8">
+      <property name="geometry">
+       <rect>
+        <x>20</x>
+        <y>20</y>
+        <width>31</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>9</pointsize>
+       </font>
+      </property>
+      <property name="text">
+       <string>Port:</string>
+      </property>
+     </widget>
+     <widget class="QSpinBox" name="spinBox">
+      <property name="geometry">
+       <rect>
+        <x>60</x>
+        <y>20</y>
+        <width>91</width>
+        <height>21</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>9</pointsize>
+       </font>
+      </property>
+      <property name="maximum">
+       <number>99999</number>
+      </property>
+      <property name="value">
+       <number>12345</number>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="pushButton_16">
+      <property name="geometry">
+       <rect>
+        <x>150</x>
+        <y>0</y>
+        <width>81</width>
+        <height>21</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Connect</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="pushButton_17">
+      <property name="geometry">
+       <rect>
+        <x>150</x>
+        <y>20</y>
+        <width>81</width>
+        <height>21</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Disconnect</string>
+      </property>
+     </widget>
+     <widget class="QLineEdit" name="lineEdit_2">
+      <property name="geometry">
+       <rect>
+        <x>60</x>
+        <y>40</y>
+        <width>91</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>8</pointsize>
+       </font>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_6">
+      <property name="geometry">
+       <rect>
+        <x>0</x>
+        <y>40</y>
+        <width>57</width>
+        <height>16</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>8</pointsize>
+       </font>
+      </property>
+      <property name="text">
+       <string>Password:</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="pushButton_20">
+      <property name="geometry">
+       <rect>
+        <x>150</x>
+        <y>41</y>
+        <width>81</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Server Off</string>
+      </property>
+     </widget>
+    </widget>
+   </widget>
+   <widget class="QFrame" name="frame_5">
+    <property name="geometry">
+     <rect>
+      <x>635</x>
+      <y>480</y>
+      <width>731</width>
+      <height>251</height>
+     </rect>
+    </property>
+    <property name="frameShape">
+     <enum>QFrame::StyledPanel</enum>
+    </property>
+    <property name="frameShadow">
+     <enum>QFrame::Raised</enum>
+    </property>
+    <widget class="QFrame" name="frame_4">
+     <property name="geometry">
+      <rect>
+       <x>370</x>
+       <y>0</y>
+       <width>361</width>
+       <height>251</height>
+      </rect>
+     </property>
+     <property name="frameShape">
+      <enum>QFrame::StyledPanel</enum>
+     </property>
+     <property name="frameShadow">
+      <enum>QFrame::Raised</enum>
+     </property>
+     <widget class="QLabel" name="label_13">
+      <property name="geometry">
+       <rect>
+        <x>180</x>
+        <y>0</y>
+        <width>176</width>
+        <height>241</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="pixmap">
+       <pixmap>roboticArm.jpg</pixmap>
+      </property>
+      <property name="scaledContents">
+       <bool>true</bool>
+      </property>
+     </widget>
+     <widget class="QSlider" name="verticalSlider_5">
+      <property name="geometry">
+       <rect>
+        <x>230</x>
+        <y>125</y>
+        <width>31</width>
+        <height>76</height>
+       </rect>
+      </property>
+      <property name="maximum">
+       <number>180</number>
+      </property>
+      <property name="value">
+       <number>90</number>
+      </property>
+      <property name="orientation">
+       <enum>Qt::Vertical</enum>
+      </property>
+     </widget>
+     <widget class="QSlider" name="verticalSlider_6">
+      <property name="geometry">
+       <rect>
+        <x>200</x>
+        <y>20</y>
+        <width>29</width>
+        <height>81</height>
+       </rect>
+      </property>
+      <property name="maximum">
+       <number>180</number>
+      </property>
+      <property name="value">
+       <number>90</number>
+      </property>
+      <property name="orientation">
+       <enum>Qt::Vertical</enum>
+      </property>
+     </widget>
+     <widget class="QSlider" name="verticalSlider_7">
+      <property name="geometry">
+       <rect>
+        <x>290</x>
+        <y>10</y>
+        <width>21</width>
+        <height>81</height>
+       </rect>
+      </property>
+      <property name="maximum">
+       <number>180</number>
+      </property>
+      <property name="value">
+       <number>90</number>
+      </property>
+      <property name="orientation">
+       <enum>Qt::Vertical</enum>
+      </property>
+     </widget>
+     <widget class="QSlider" name="horizontalSlider_3">
+      <property name="geometry">
+       <rect>
+        <x>280</x>
+        <y>100</y>
+        <width>71</width>
+        <height>21</height>
+       </rect>
+      </property>
+      <property name="maximum">
+       <number>180</number>
+      </property>
+      <property name="value">
+       <number>90</number>
+      </property>
+      <property name="orientation">
+       <enum>Qt::Horizontal</enum>
+      </property>
+     </widget>
+     <widget class="QSlider" name="horizontalSlider_4">
+      <property name="geometry">
+       <rect>
+        <x>210</x>
+        <y>210</y>
+        <width>141</width>
+        <height>31</height>
+       </rect>
+      </property>
+      <property name="maximum">
+       <number>359</number>
+      </property>
+      <property name="value">
+       <number>180</number>
+      </property>
+      <property name="orientation">
+       <enum>Qt::Horizontal</enum>
+      </property>
+     </widget>
+     <widget class="QFrame" name="frame_10">
+      <property name="geometry">
+       <rect>
+        <x>0</x>
+        <y>-10</y>
+        <width>181</width>
+        <height>261</height>
+       </rect>
+      </property>
+      <property name="frameShape">
+       <enum>QFrame::StyledPanel</enum>
+      </property>
+      <property name="frameShadow">
+       <enum>QFrame::Raised</enum>
+      </property>
+      <widget class="QLabel" name="label_11">
+       <property name="geometry">
+        <rect>
+         <x>0</x>
+         <y>10</y>
+         <width>171</width>
+         <height>251</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+       <property name="pixmap">
+        <pixmap>rightHand.png</pixmap>
+       </property>
+       <property name="scaledContents">
+        <bool>true</bool>
+       </property>
+      </widget>
+      <widget class="QFrame" name="frame_11">
+       <property name="geometry">
+        <rect>
+         <x>0</x>
+         <y>0</y>
+         <width>181</width>
+         <height>146</height>
+        </rect>
+       </property>
+       <property name="frameShape">
+        <enum>QFrame::StyledPanel</enum>
+       </property>
+       <property name="frameShadow">
+        <enum>QFrame::Raised</enum>
+       </property>
+       <widget class="QSpinBox" name="spinBox_11">
+        <property name="geometry">
+         <rect>
+          <x>130</x>
+          <y>90</y>
+          <width>46</width>
+          <height>26</height>
+         </rect>
+        </property>
+        <property name="value">
+         <number>99</number>
+        </property>
+       </widget>
+       <widget class="QSpinBox" name="spinBox_12">
+        <property name="geometry">
+         <rect>
+          <x>125</x>
+          <y>51</y>
+          <width>46</width>
+          <height>26</height>
+         </rect>
+        </property>
+        <property name="value">
+         <number>99</number>
+        </property>
+       </widget>
+       <widget class="QSpinBox" name="spinBox_13">
+        <property name="geometry">
+         <rect>
+          <x>100</x>
+          <y>16</y>
+          <width>46</width>
+          <height>21</height>
+         </rect>
+        </property>
+        <property name="value">
+         <number>99</number>
+        </property>
+       </widget>
+       <widget class="QSpinBox" name="spinBox_14">
+        <property name="geometry">
+         <rect>
+          <x>30</x>
+          <y>30</y>
+          <width>46</width>
+          <height>27</height>
+         </rect>
+        </property>
+        <property name="value">
+         <number>99</number>
+        </property>
+       </widget>
+       <widget class="QSpinBox" name="spinBox_15">
+        <property name="geometry">
+         <rect>
+          <x>5</x>
+          <y>85</y>
+          <width>46</width>
+          <height>27</height>
+         </rect>
+        </property>
+        <property name="value">
+         <number>99</number>
+        </property>
+       </widget>
+      </widget>
+      <widget class="QSpinBox" name="spinBox_10">
+       <property name="geometry">
+        <rect>
+         <x>50</x>
+         <y>165</y>
+         <width>56</width>
+         <height>27</height>
+        </rect>
+       </property>
+       <property name="value">
+        <number>99</number>
+       </property>
+      </widget>
+     </widget>
+    </widget>
+    <widget class="QFrame" name="frame_3">
+     <property name="geometry">
+      <rect>
+       <x>5</x>
+       <y>0</y>
+       <width>361</width>
+       <height>251</height>
+      </rect>
+     </property>
+     <property name="frameShape">
+      <enum>QFrame::StyledPanel</enum>
+     </property>
+     <property name="frameShadow">
+      <enum>QFrame::Raised</enum>
+     </property>
+     <widget class="QLabel" name="label_12">
+      <property name="geometry">
+       <rect>
+        <x>180</x>
+        <y>0</y>
+        <width>176</width>
+        <height>241</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="pixmap">
+       <pixmap>roboticArm.jpg</pixmap>
+      </property>
+      <property name="scaledContents">
+       <bool>true</bool>
+      </property>
+     </widget>
+     <widget class="QSlider" name="verticalSlider_2">
+      <property name="geometry">
+       <rect>
+        <x>235</x>
+        <y>130</y>
+        <width>29</width>
+        <height>81</height>
+       </rect>
+      </property>
+      <property name="maximum">
+       <number>180</number>
+      </property>
+      <property name="value">
+       <number>90</number>
+      </property>
+      <property name="orientation">
+       <enum>Qt::Vertical</enum>
+      </property>
+     </widget>
+     <widget class="QSlider" name="verticalSlider_3">
+      <property name="geometry">
+       <rect>
+        <x>210</x>
+        <y>20</y>
+        <width>31</width>
+        <height>81</height>
+       </rect>
+      </property>
+      <property name="maximum">
+       <number>180</number>
+      </property>
+      <property name="value">
+       <number>90</number>
+      </property>
+      <property name="orientation">
+       <enum>Qt::Vertical</enum>
+      </property>
+     </widget>
+     <widget class="QSlider" name="verticalSlider_4">
+      <property name="geometry">
+       <rect>
+        <x>305</x>
+        <y>5</y>
+        <width>31</width>
+        <height>81</height>
+       </rect>
+      </property>
+      <property name="maximum">
+       <number>180</number>
+      </property>
+      <property name="value">
+       <number>90</number>
+      </property>
+      <property name="orientation">
+       <enum>Qt::Vertical</enum>
+      </property>
+     </widget>
+     <widget class="QSlider" name="horizontalSlider_2">
+      <property name="geometry">
+       <rect>
+        <x>280</x>
+        <y>110</y>
+        <width>71</width>
+        <height>31</height>
+       </rect>
+      </property>
+      <property name="maximum">
+       <number>180</number>
+      </property>
+      <property name="value">
+       <number>90</number>
+      </property>
+      <property name="orientation">
+       <enum>Qt::Horizontal</enum>
+      </property>
+     </widget>
+     <widget class="QSlider" name="horizontalSlider">
+      <property name="geometry">
+       <rect>
+        <x>215</x>
+        <y>210</y>
+        <width>121</width>
+        <height>29</height>
+       </rect>
+      </property>
+      <property name="maximum">
+       <number>359</number>
+      </property>
+      <property name="value">
+       <number>180</number>
+      </property>
+      <property name="orientation">
+       <enum>Qt::Horizontal</enum>
+      </property>
+     </widget>
+     <widget class="QFrame" name="frame_9">
+      <property name="geometry">
+       <rect>
+        <x>0</x>
+        <y>0</y>
+        <width>181</width>
+        <height>251</height>
+       </rect>
+      </property>
+      <property name="frameShape">
+       <enum>QFrame::StyledPanel</enum>
+      </property>
+      <property name="frameShadow">
+       <enum>QFrame::Raised</enum>
+      </property>
+      <widget class="QLabel" name="label_10">
+       <property name="geometry">
+        <rect>
+         <x>0</x>
+         <y>0</y>
+         <width>171</width>
+         <height>251</height>
+        </rect>
+       </property>
+       <property name="autoFillBackground">
+        <bool>false</bool>
+       </property>
+       <property name="styleSheet">
+        <string notr="true"/>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+       <property name="pixmap">
+        <pixmap>leftHand.png</pixmap>
+       </property>
+       <property name="scaledContents">
+        <bool>true</bool>
+       </property>
+      </widget>
+      <widget class="QFrame" name="frame_12">
+       <property name="geometry">
+        <rect>
+         <x>0</x>
+         <y>0</y>
+         <width>196</width>
+         <height>141</height>
+        </rect>
+       </property>
+       <property name="frameShape">
+        <enum>QFrame::StyledPanel</enum>
+       </property>
+       <property name="frameShadow">
+        <enum>QFrame::Raised</enum>
+       </property>
+       <widget class="QSpinBox" name="spinBox_5">
+        <property name="geometry">
+         <rect>
+          <x>5</x>
+          <y>90</y>
+          <width>46</width>
+          <height>27</height>
+         </rect>
+        </property>
+        <property name="value">
+         <number>99</number>
+        </property>
+       </widget>
+       <widget class="QSpinBox" name="spinBox_6">
+        <property name="geometry">
+         <rect>
+          <x>10</x>
+          <y>40</y>
+          <width>46</width>
+          <height>27</height>
+         </rect>
+        </property>
+        <property name="value">
+         <number>99</number>
+        </property>
+       </widget>
+       <widget class="QSpinBox" name="spinBox_7">
+        <property name="geometry">
+         <rect>
+          <x>45</x>
+          <y>5</y>
+          <width>46</width>
+          <height>26</height>
+         </rect>
+        </property>
+        <property name="value">
+         <number>99</number>
+        </property>
+       </widget>
+       <widget class="QSpinBox" name="spinBox_8">
+        <property name="geometry">
+         <rect>
+          <x>95</x>
+          <y>20</y>
+          <width>46</width>
+          <height>27</height>
+         </rect>
+        </property>
+        <property name="value">
+         <number>99</number>
+        </property>
+       </widget>
+       <widget class="QSpinBox" name="spinBox_9">
+        <property name="geometry">
+         <rect>
+          <x>130</x>
+          <y>70</y>
+          <width>46</width>
+          <height>27</height>
+         </rect>
+        </property>
+        <property name="value">
+         <number>99</number>
+        </property>
+       </widget>
+      </widget>
+      <widget class="QSpinBox" name="spinBox_4">
+       <property name="geometry">
+        <rect>
+         <x>80</x>
+         <y>160</y>
+         <width>60</width>
+         <height>27</height>
+        </rect>
+       </property>
+       <property name="value">
+        <number>99</number>
+       </property>
+      </widget>
+     </widget>
+    </widget>
+   </widget>
+   <widget class="QGroupBox" name="groupBox_4">
+    <property name="geometry">
+     <rect>
+      <x>1280</x>
+      <y>0</y>
+      <width>86</width>
+      <height>481</height>
+     </rect>
+    </property>
+    <property name="title">
+     <string>Camera </string>
+    </property>
+    <widget class="QSlider" name="verticalSlider">
+     <property name="geometry">
+      <rect>
+       <x>40</x>
+       <y>200</y>
+       <width>31</width>
+       <height>136</height>
+      </rect>
+     </property>
+     <property name="maximum">
+      <number>180</number>
+     </property>
+     <property name="value">
+      <number>90</number>
+     </property>
+     <property name="orientation">
+      <enum>Qt::Vertical</enum>
+     </property>
+     <property name="tickPosition">
+      <enum>QSlider::TicksAbove</enum>
+     </property>
+     <property name="tickInterval">
+      <number>25</number>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="pushButton_9">
+     <property name="geometry">
+      <rect>
+       <x>0</x>
+       <y>115</y>
+       <width>86</width>
+       <height>21</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>7</pointsize>
+       <weight>75</weight>
+       <bold>true</bold>
+      </font>
+     </property>
+     <property name="text">
+      <string>Start recording</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="pushButton_10">
+     <property name="geometry">
+      <rect>
+       <x>0</x>
+       <y>140</y>
+       <width>86</width>
+       <height>21</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>7</pointsize>
+       <weight>75</weight>
+       <bold>true</bold>
+      </font>
+     </property>
+     <property name="text">
+      <string>Stop recording</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_3">
+     <property name="geometry">
+      <rect>
+       <x>0</x>
+       <y>331</y>
+       <width>41</width>
+       <height>20</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>7</pointsize>
+      </font>
+     </property>
+     <property name="text">
+      <string> X angle</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label">
+     <property name="geometry">
+      <rect>
+       <x>0</x>
+       <y>160</y>
+       <width>81</width>
+       <height>16</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>7</pointsize>
+      </font>
+     </property>
+     <property name="text">
+      <string>0 [s]</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="pushButton_30">
+     <property name="geometry">
+      <rect>
+       <x>0</x>
+       <y>180</y>
+       <width>86</width>
+       <height>21</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>12</pointsize>
+      </font>
+     </property>
+     <property name="text">
+      <string>Save</string>
+     </property>
+    </widget>
+    <widget class="QSlider" name="verticalSlider_8">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>200</y>
+       <width>21</width>
+       <height>136</height>
+      </rect>
+     </property>
+     <property name="maximum">
+      <number>180</number>
+     </property>
+     <property name="value">
+      <number>90</number>
+     </property>
+     <property name="orientation">
+      <enum>Qt::Vertical</enum>
+     </property>
+    </widget>
+    <widget class="QSpinBox" name="spinBox_3">
+     <property name="geometry">
+      <rect>
+       <x>45</x>
+       <y>15</y>
+       <width>41</width>
+       <height>21</height>
+      </rect>
+     </property>
+     <property name="maximum">
+      <number>1</number>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_17">
+     <property name="geometry">
+      <rect>
+       <x>5</x>
+       <y>20</y>
+       <width>41</width>
+       <height>16</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>9</pointsize>
+      </font>
+     </property>
+     <property name="text">
+      <string>Index</string>
+     </property>
+    </widget>
+    <widget class="QSlider" name="verticalSlider_9">
+     <property name="geometry">
+      <rect>
+       <x>30</x>
+       <y>355</y>
+       <width>31</width>
+       <height>111</height>
+      </rect>
+     </property>
+     <property name="maximum">
+      <number>360</number>
+     </property>
+     <property name="value">
+      <number>180</number>
+     </property>
+     <property name="orientation">
+      <enum>Qt::Vertical</enum>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_4">
+     <property name="geometry">
+      <rect>
+       <x>40</x>
+       <y>331</y>
+       <width>41</width>
+       <height>20</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>7</pointsize>
+      </font>
+     </property>
+     <property name="text">
+      <string> Y angle</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_18">
+     <property name="geometry">
+      <rect>
+       <x>30</x>
+       <y>460</y>
+       <width>41</width>
+       <height>21</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>7</pointsize>
+      </font>
+     </property>
+     <property name="text">
+      <string>Z angle</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="pushButton_18">
+     <property name="geometry">
+      <rect>
+       <x>0</x>
+       <y>40</y>
+       <width>83</width>
+       <height>24</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Stream ON</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="pushButton_19">
+     <property name="geometry">
+      <rect>
+       <x>0</x>
+       <y>70</y>
+       <width>83</width>
+       <height>24</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Stream OFF</string>
+     </property>
+    </widget>
+   </widget>
+   <widget class="QGroupBox" name="groupBox_3">
+    <property name="enabled">
+     <bool>true</bool>
+    </property>
+    <property name="geometry">
+     <rect>
+      <x>235</x>
+      <y>485</y>
+      <width>401</width>
+      <height>141</height>
+     </rect>
+    </property>
+    <property name="title">
+     <string>Audio</string>
+    </property>
+    <widget class="QPlainTextEdit" name="plainTextEdit">
+     <property name="geometry">
+      <rect>
+       <x>0</x>
+       <y>30</y>
+       <width>391</width>
+       <height>41</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>8</pointsize>
+      </font>
+     </property>
+     <property name="plainText">
+      <string>Test audo message</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_2">
+     <property name="geometry">
+      <rect>
+       <x>60</x>
+       <y>10</y>
+       <width>151</width>
+       <height>17</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Language: en</string>
+     </property>
+    </widget>
+    <widget class="QFrame" name="frame">
+     <property name="geometry">
+      <rect>
+       <x>0</x>
+       <y>110</y>
+       <width>391</width>
+       <height>26</height>
+      </rect>
+     </property>
+     <property name="frameShape">
+      <enum>QFrame::StyledPanel</enum>
+     </property>
+     <property name="frameShadow">
+      <enum>QFrame::Raised</enum>
+     </property>
+     <widget class="QRadioButton" name="radioButton_4">
+      <property name="geometry">
+       <rect>
+        <x>160</x>
+        <y>1</y>
+        <width>51</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>8</pointsize>
+        <weight>75</weight>
+        <bold>true</bold>
+       </font>
+      </property>
+      <property name="text">
+       <string>File</string>
+      </property>
+     </widget>
+     <widget class="QRadioButton" name="radioButton_2">
+      <property name="enabled">
+       <bool>true</bool>
+      </property>
+      <property name="geometry">
+       <rect>
+        <x>65</x>
+        <y>0</y>
+        <width>91</width>
+        <height>26</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>8</pointsize>
+        <weight>75</weight>
+        <bold>true</bold>
+       </font>
+      </property>
+      <property name="text">
+       <string>Microphone</string>
+      </property>
+      <property name="checked">
+       <bool>true</bool>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="pushButton_11">
+      <property name="geometry">
+       <rect>
+        <x>220</x>
+        <y>0</y>
+        <width>51</width>
+        <height>26</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>10</pointsize>
+        <weight>75</weight>
+        <bold>true</bold>
+       </font>
+      </property>
+      <property name="text">
+       <string>Play</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="pushButton_14">
+      <property name="geometry">
+       <rect>
+        <x>280</x>
+        <y>0</y>
+        <width>51</width>
+        <height>26</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>10</pointsize>
+        <weight>75</weight>
+        <bold>true</bold>
+       </font>
+      </property>
+      <property name="text">
+       <string>Stop</string>
+      </property>
+     </widget>
+     <widget class="QCheckBox" name="checkBox_3">
+      <property name="geometry">
+       <rect>
+        <x>5</x>
+        <y>5</y>
+        <width>56</width>
+        <height>21</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>8</pointsize>
+        <weight>75</weight>
+        <bold>true</bold>
+       </font>
+      </property>
+      <property name="text">
+       <string>Loop</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="pushButton_15">
+      <property name="geometry">
+       <rect>
+        <x>340</x>
+        <y>0</y>
+        <width>51</width>
+        <height>26</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>...</string>
+      </property>
+     </widget>
+    </widget>
+    <widget class="QFrame" name="frame_7">
+     <property name="geometry">
+      <rect>
+       <x>0</x>
+       <y>70</y>
+       <width>391</width>
+       <height>41</height>
+      </rect>
+     </property>
+     <property name="frameShape">
+      <enum>QFrame::StyledPanel</enum>
+     </property>
+     <property name="frameShadow">
+      <enum>QFrame::Raised</enum>
+     </property>
+     <widget class="QPushButton" name="pushButton_13">
+      <property name="geometry">
+       <rect>
+        <x>175</x>
+        <y>0</y>
+        <width>86</width>
+        <height>21</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>7</pointsize>
+        <weight>75</weight>
+        <bold>true</bold>
+       </font>
+      </property>
+      <property name="text">
+       <string>Stop recording</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="pushButton_12">
+      <property name="geometry">
+       <rect>
+        <x>85</x>
+        <y>0</y>
+        <width>81</width>
+        <height>21</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>7</pointsize>
+        <weight>75</weight>
+        <bold>true</bold>
+       </font>
+      </property>
+      <property name="text">
+       <string>Start recording</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="pushButton_31">
+      <property name="geometry">
+       <rect>
+        <x>270</x>
+        <y>0</y>
+        <width>86</width>
+        <height>21</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Save</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_5">
+      <property name="geometry">
+       <rect>
+        <x>5</x>
+        <y>25</y>
+        <width>211</width>
+        <height>16</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>9</pointsize>
+       </font>
+      </property>
+      <property name="text">
+       <string>0 [s]</string>
+      </property>
+     </widget>
+     <widget class="QCheckBox" name="checkBox">
+      <property name="enabled">
+       <bool>true</bool>
+      </property>
+      <property name="geometry">
+       <rect>
+        <x>5</x>
+        <y>5</y>
+        <width>61</width>
+        <height>21</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>8</pointsize>
+        <weight>75</weight>
+        <bold>true</bold>
+       </font>
+      </property>
+      <property name="text">
+       <string>Listen</string>
+      </property>
+      <property name="checked">
+       <bool>false</bool>
+      </property>
+     </widget>
+    </widget>
+   </widget>
+   <widget class="QFrame" name="frame_8">
+    <property name="geometry">
+     <rect>
+      <x>0</x>
+      <y>640</y>
+      <width>631</width>
+      <height>91</height>
+     </rect>
+    </property>
+    <property name="frameShape">
+     <enum>QFrame::StyledPanel</enum>
+    </property>
+    <property name="frameShadow">
+     <enum>QFrame::Raised</enum>
+    </property>
+    <widget class="QComboBox" name="comboBox_2">
+     <property name="geometry">
+      <rect>
+       <x>0</x>
+       <y>40</y>
+       <width>136</width>
+       <height>31</height>
+      </rect>
+     </property>
+     <item>
+      <property name="text">
+       <string>Keyboard</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>None</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>PS3 Controller</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>JSK420 Joystick</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>Kinect + PS3 Controller</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>Kinect + Joystick</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>Kinect + Keyboard</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>Camera + PS3 Controller</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>Camera + Joystick</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>Camera + Keyboard</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string/>
+      </property>
+     </item>
+    </widget>
+    <widget class="QComboBox" name="comboBox">
+     <property name="enabled">
+      <bool>false</bool>
+     </property>
+     <property name="geometry">
+      <rect>
+       <x>0</x>
+       <y>10</y>
+       <width>136</width>
+       <height>26</height>
+      </rect>
+     </property>
+     <item>
+      <property name="text">
+       <string>other</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>manipulator</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>UAV</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>tank</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>car</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>boat</string>
+      </property>
+     </item>
+    </widget>
+    <widget class="QGroupBox" name="groupBox">
+     <property name="geometry">
+      <rect>
+       <x>390</x>
+       <y>0</y>
+       <width>231</width>
+       <height>91</height>
+      </rect>
+     </property>
+     <property name="title">
+      <string>Altitude, Yaw</string>
+     </property>
+     <widget class="QPushButton" name="pushButton_3">
+      <property name="geometry">
+       <rect>
+        <x>40</x>
+        <y>20</y>
+        <width>66</width>
+        <height>31</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>i</string>
+      </property>
+      <property name="checkable">
+       <bool>false</bool>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="pushButton_4">
+      <property name="geometry">
+       <rect>
+        <x>70</x>
+        <y>50</y>
+        <width>61</width>
+        <height>31</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>k</string>
+      </property>
+      <property name="checkable">
+       <bool>false</bool>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="pushButton">
+      <property name="geometry">
+       <rect>
+        <x>0</x>
+        <y>50</y>
+        <width>66</width>
+        <height>31</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>j</string>
+      </property>
+      <property name="checkable">
+       <bool>false</bool>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="pushButton_2">
+      <property name="geometry">
+       <rect>
+        <x>135</x>
+        <y>50</y>
+        <width>61</width>
+        <height>31</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>l</string>
+      </property>
+      <property name="checkable">
+       <bool>false</bool>
+      </property>
+     </widget>
+     <widget class="QSlider" name="verticalSlider_11">
+      <property name="geometry">
+       <rect>
+        <x>200</x>
+        <y>10</y>
+        <width>21</width>
+        <height>71</height>
+       </rect>
+      </property>
+      <property name="value">
+       <number>50</number>
+      </property>
+      <property name="orientation">
+       <enum>Qt::Vertical</enum>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_20">
+      <property name="geometry">
+       <rect>
+        <x>170</x>
+        <y>20</y>
+        <width>31</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string> PID</string>
+      </property>
+     </widget>
+    </widget>
+    <widget class="QGroupBox" name="groupBox_6">
+     <property name="geometry">
+      <rect>
+       <x>150</x>
+       <y>0</y>
+       <width>231</width>
+       <height>91</height>
+      </rect>
+     </property>
+     <property name="title">
+      <string>Pich, Roll</string>
+     </property>
+     <widget class="QSlider" name="verticalSlider_10">
+      <property name="geometry">
+       <rect>
+        <x>200</x>
+        <y>10</y>
+        <width>21</width>
+        <height>71</height>
+       </rect>
+      </property>
+      <property name="value">
+       <number>50</number>
+      </property>
+      <property name="orientation">
+       <enum>Qt::Vertical</enum>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_19">
+      <property name="geometry">
+       <rect>
+        <x>160</x>
+        <y>20</y>
+        <width>31</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string> PID</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="pushButton_5">
+      <property name="geometry">
+       <rect>
+        <x>40</x>
+        <y>20</y>
+        <width>66</width>
+        <height>31</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>w</string>
+      </property>
+      <property name="checkable">
+       <bool>false</bool>
+      </property>
+      <property name="checked">
+       <bool>false</bool>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="pushButton_8">
+      <property name="geometry">
+       <rect>
+        <x>130</x>
+        <y>50</y>
+        <width>66</width>
+        <height>31</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>d</string>
+      </property>
+      <property name="checkable">
+       <bool>false</bool>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="pushButton_7">
+      <property name="geometry">
+       <rect>
+        <x>0</x>
+        <y>50</y>
+        <width>66</width>
+        <height>31</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>a</string>
+      </property>
+      <property name="checkable">
+       <bool>false</bool>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="pushButton_6">
+      <property name="geometry">
+       <rect>
+        <x>65</x>
+        <y>50</y>
+        <width>66</width>
+        <height>31</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>s</string>
+      </property>
+      <property name="checkable">
+       <bool>false</bool>
+      </property>
+     </widget>
+    </widget>
+   </widget>
+  </widget>
+  <widget class="QMenuBar" name="menubar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>1375</width>
+     <height>20</height>
+    </rect>
+   </property>
+   <widget class="QMenu" name="menuSettings">
+    <property name="title">
+     <string>Settings</string>
+    </property>
+    <widget class="QMenu" name="menuRobot_type">
+     <property name="title">
+      <string>Robot type</string>
+     </property>
+     <addaction name="actionQuadcopter"/>
+     <addaction name="actionTank"/>
+     <addaction name="actionCar"/>
+     <addaction name="actionBoat"/>
+    </widget>
+    <widget class="QMenu" name="menuAudio">
+     <property name="title">
+      <string>Audio</string>
+     </property>
+     <addaction name="separator"/>
+     <addaction name="actionLoop_settings"/>
+     <addaction name="actionVolume"/>
+    </widget>
+    <widget class="QMenu" name="menuAdd_robotic_hand">
+     <property name="title">
+      <string>Add robotic hand</string>
+     </property>
+     <addaction name="actionRight"/>
+     <addaction name="actionLeft"/>
+    </widget>
+    <addaction name="menuRobot_type"/>
+    <addaction name="actionWorkspace"/>
+    <addaction name="actionLanguage"/>
+    <addaction name="menuAudio"/>
+    <addaction name="menuAdd_robotic_hand"/>
+   </widget>
+   <addaction name="menuSettings"/>
+  </widget>
+  <widget class="QStatusBar" name="statusbar"/>
+  <action name="actionQuadcopter">
+   <property name="text">
+    <string>UAV</string>
+   </property>
+  </action>
+  <action name="actionTank">
+   <property name="text">
+    <string>tank</string>
+   </property>
+  </action>
+  <action name="actionCar">
+   <property name="text">
+    <string>car</string>
+   </property>
+  </action>
+  <action name="actionBoat">
+   <property name="text">
+    <string>boat</string>
+   </property>
+  </action>
+  <action name="actionWorkspace">
+   <property name="text">
+    <string>Workspace</string>
+   </property>
+  </action>
+  <action name="actionLanguage">
+   <property name="text">
+    <string>Language</string>
+   </property>
+  </action>
+  <action name="actionLoop_settings">
+   <property name="text">
+    <string>Loop settings</string>
+   </property>
+  </action>
+  <action name="actionVolume">
+   <property name="text">
+    <string>Volume</string>
+   </property>
+  </action>
+  <action name="actionRight">
+   <property name="text">
+    <string>Right</string>
+   </property>
+  </action>
+  <action name="actionLeft">
+   <property name="text">
+    <string>Left</string>
+   </property>
+  </action>
+  <action name="actionTurn_Server_Off">
+   <property name="text">
+    <string>Turn Server Off</string>
+   </property>
+  </action>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
