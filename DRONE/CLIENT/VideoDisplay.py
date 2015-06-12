@@ -4,10 +4,11 @@ from PyQt4 import QtCore
 
 __author__ = 'noname'
 class VideoDisplay(threading.Thread):
-    def __init__(self, ui):
+    def __init__(self, ui, cameraIndex):
         threading.Thread.__init__(self)
         self.ui = ui
         self.allowRun = False
+        self.cameraIndex = cameraIndex
 
     def run(self):
         self.allowRun = True
@@ -20,7 +21,8 @@ class VideoDisplay(threading.Thread):
                 decimg=cv2.imdecode(data,cv2.CV_LOAD_IMAGE_UNCHANGED)
                 cvRGBImg = cv2.cvtColor(decimg, cv2.cv.CV_BGR2RGB)
                 qimg = QImage(cvRGBImg.data,cvRGBImg.shape[1], cvRGBImg.shape[0], QImage.Format_RGB888)
-                self.ui.object.emit(QtCore.SIGNAL("displayImage(PyQt_PyObject)"), QPixmap.fromImage(qimg))
+                self.ui.object.emit(QtCore.SIGNAL("displayImage(PyQt_PyObject, int)"), QPixmap.fromImage(qimg), self.cameraIndex)
+
         self.videoSocket.close()
         self.videoConn.close()
 

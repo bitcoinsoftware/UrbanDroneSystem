@@ -1,4 +1,4 @@
-import socket, select, time, threading, cv2, serial, argparse, multiprocessing, numpy, ast
+import socket, select, threading, cv2, serial, argparse,  numpy, ast
 import ConfigFile
 
 SERIAL = "/dev/ttyACM99"
@@ -64,8 +64,10 @@ class DroneServer(threading.Thread):
         clients.append(self)
         lock.release()
         print '%s:%s connected.' % self.address
-        streamRequested = False
-        cameraThread = None
+        #streamRequested = False
+        streamRequested = [False, False]  # 2 cameras
+        #cameraThread = None
+        cameraThreads = [None, None]
         while True:
             ready = select.select([self.socket], [], [], 0.0001)
             if ready[0]:
@@ -74,19 +76,30 @@ class DroneServer(threading.Thread):
                     jsonData = ast.literal_eval(recData)
                     print "RECEIVED: ", jsonData
                     request = jsonData['request']
+                    requestArgument = jsonData['argument']
                     if request=='connect':
                         self.socket.send(str(ConfigFile.config))
-                    elif (request=='startStream' and streamRequested==False) or (request=='connectVideo' and streamRequested==True):
-                        self.socket.send(str(ConfigFile.config['videoAvailable']))
-                        streamRequested = True
-                        if ConfigFile.config['videoAvailable']:
-                            if request=='connectVideo':
-                                cameraNumber = jsonData['index']
-                                cameraThread = CameraThread((self.address[0], ConfigFile.config['cameraParams'][cameraNumber]['videoPort']) , ConfigFile.config['cameraParams'][cameraNumber]['cameraIndex'])
-                                cameraThread.start()
-                    elif request=='stopStream': #stop video stream
-                        streamRequested = False
-                        cameraThread.stopStream(self.socket)
+                    if request=='startStream' or request=='connectVideo' or request=='stopStream':
+                        cameraNumber = requestArgument
+
+                        if (request=='startStream' and streamRequested[cameraNumber]==False) or (request=='connectVideo' and streamRequested[cameraNumber]==True):
+                            self.socket.send(str(ConfigFile.config['videoAvailable']))
+                            streamRequested[cameraNumber] = True
+                            if ConfigFile.config['videoAvailable']:
+                                if request=='connectVideo':
+                                    cameraThreads[cameraNumber]= CameraThread((self.address[0], ConfigFile.config['cameraParams'][cameraNumber]['videoPort']) , ConfigFile.config['cameraParams'][cameraNumber]['cameraIndex'])
+                                    cameraThreads[cameraNumber].start()
+                                    #cameraThread = CameraThread((self.address[0], ConfigFile.config['cameraParams'][cameraNumber]['videoPort']) , ConfigFile.config['cameraParams'][cameraNumber]['cameraIndex'])
+                                    #cameraThread.start()
+                                    ConfigFile.config['cameraParams'][cameraNumber]['taken'] = True
+                        elif request=='stopStream' and streamRequested[cameraNumber] == True: #stop video stream
+                            streamRequested[cameraNumber] = False
+                            cameraThreads[cameraNumber].stopStream(self.socket)
+                            #cameraThread.stopStream(self.socket)
+
+                    elif request=='move':
+                        #self.socket.send('True')
+                        pass
 
                     elif request=='disconnect': #disconnect telnet client
                         self.socket.send('True')

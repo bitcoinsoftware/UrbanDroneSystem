@@ -25,14 +25,16 @@ class Client:
             self.features=data
 
 
-    def request(self, methodName, args ={}):
+    def request(self, methodName, args ={'argument':None}, waitForConfiramtion = True):
         msgDict = {'request':methodName}
         msgDict.update(args)
         self.tn.write(str(msgDict))
         data = None
-        while not data:
-            data = self.tn.read_until("\n",timeout=1)
-        data = ast.literal_eval(data)
+        if waitForConfiramtion:
+            while not data:
+                data = self.tn.read_until("\n",timeout=1)
+            print ">",data,"<"
+            data = ast.literal_eval(data)
         return data
 
     def end(self):

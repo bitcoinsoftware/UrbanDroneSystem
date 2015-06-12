@@ -21,6 +21,9 @@
   <property name="windowTitle">
    <string>RoboClient</string>
   </property>
+  <property name="autoFillBackground">
+   <bool>false</bool>
+  </property>
   <property name="tabShape">
    <enum>QTabWidget::Rounded</enum>
   </property>
@@ -143,7 +146,7 @@
      <widget class="QLabel" name="label_7">
       <property name="geometry">
        <rect>
-        <x>0</x>
+        <x>10</x>
         <y>0</y>
         <width>51</width>
         <height>20</height>
@@ -237,6 +240,11 @@
         <height>21</height>
        </rect>
       </property>
+      <property name="font">
+       <font>
+        <pointsize>9</pointsize>
+       </font>
+      </property>
       <property name="text">
        <string>Disconnect</string>
       </property>
@@ -262,15 +270,15 @@
      <widget class="QLabel" name="label_6">
       <property name="geometry">
        <rect>
-        <x>0</x>
+        <x>10</x>
         <y>40</y>
-        <width>57</width>
+        <width>51</width>
         <height>16</height>
        </rect>
       </property>
       <property name="font">
        <font>
-        <pointsize>8</pointsize>
+        <pointsize>7</pointsize>
        </font>
       </property>
       <property name="text">
@@ -1410,9 +1418,14 @@
       <rect>
        <x>0</x>
        <y>40</y>
-       <width>136</width>
-       <height>31</height>
+       <width>141</width>
+       <height>21</height>
       </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>8</pointsize>
+      </font>
      </property>
      <item>
       <property name="text">
@@ -1426,7 +1439,7 @@
      </item>
      <item>
       <property name="text">
-       <string>PS3 Controller</string>
+       <string>PS2 Pad</string>
       </property>
      </item>
      <item>
@@ -1436,7 +1449,7 @@
      </item>
      <item>
       <property name="text">
-       <string>Kinect + PS3 Controller</string>
+       <string>Kinect + PS2 Pad</string>
       </property>
      </item>
      <item>
@@ -1451,7 +1464,7 @@
      </item>
      <item>
       <property name="text">
-       <string>Camera + PS3 Controller</string>
+       <string>Camera + PS2 Pad</string>
       </property>
      </item>
      <item>
@@ -1478,8 +1491,8 @@
       <rect>
        <x>0</x>
        <y>10</y>
-       <width>136</width>
-       <height>26</height>
+       <width>141</width>
+       <height>20</height>
       </rect>
      </property>
      <item>
@@ -1516,14 +1529,14 @@
     <widget class="QGroupBox" name="groupBox">
      <property name="geometry">
       <rect>
-       <x>390</x>
+       <x>150</x>
        <y>0</y>
        <width>231</width>
        <height>91</height>
       </rect>
      </property>
      <property name="title">
-      <string>Altitude, Yaw</string>
+      <string>Throttle, Yaw</string>
      </property>
      <widget class="QPushButton" name="pushButton_3">
       <property name="geometry">
@@ -1619,10 +1632,23 @@
       </property>
      </widget>
     </widget>
+    <widget class="QPushButton" name="pushButton_21">
+     <property name="geometry">
+      <rect>
+       <x>30</x>
+       <y>63</y>
+       <width>83</width>
+       <height>21</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Apply</string>
+     </property>
+    </widget>
     <widget class="QGroupBox" name="groupBox_6">
      <property name="geometry">
       <rect>
-       <x>150</x>
+       <x>390</x>
        <y>0</y>
        <width>231</width>
        <height>91</height>
