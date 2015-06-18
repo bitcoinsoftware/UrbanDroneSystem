@@ -68,7 +68,7 @@ class DroneServer(threading.Thread):
         streamRequested = [False, False]  # 2 cameras
         #cameraThread = None
         cameraThreads = [None, None]
-        while True:
+        while runServer:
             ready = select.select([self.socket], [], [], 0.0001)
             if ready[0]:
                 recData = self.socket.recv(1024).lstrip()
@@ -106,9 +106,11 @@ class DroneServer(threading.Thread):
                         print '%s:%s disconnected.' % self.address
 
                     elif request=='stopServer':
-                        self.stopStream()
+                        for cameraNumber in range(len(cameraThreads)):
+                            if streamRequested[cameraNumber] == True:
+                                cameraThreads[cameraNumber].stopStream(self.socket)
+                                streamRequested[cameraNumber] = False
                         runServer = False
-                        pass
 
         lock.acquire()
         clients.remove(self)

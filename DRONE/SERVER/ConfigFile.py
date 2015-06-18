@@ -1,6 +1,6 @@
 __author__ = 'noname'
 #TODO : Osobny videoport dla kazdej z kamer. Dzieki temu jedna osoba moze byc kierowca a druga np. celowniczym
-config = {'serverType':'tank', 'videoAvailable':True, 'port':12341, 'audioAvailable':True,
+config = {'serverType':'tank', 'videoAvailable':True, 'port':12345, 'audioAvailable':True,
           'microphoneAvailable':True, 'speakerAvailable':True,
 'cameraParams':
 [

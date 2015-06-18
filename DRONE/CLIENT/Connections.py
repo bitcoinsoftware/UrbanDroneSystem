@@ -69,7 +69,7 @@ def connect(ui, param = None):
     ui.groupBox_3.setEnabled(False)
     QtCore.QObject.connect(ui.pushButton_16, QtCore.SIGNAL('clicked()'), partial(connectServer, ui, param, connectionButtons, ui.pushButton_16))
     QtCore.QObject.connect(ui.pushButton_17, QtCore.SIGNAL('clicked()'), partial(disconnectServer, ui, connectionButtons, ui.pushButton_17))
-    QtCore.QObject.connect(ui.pushButton_20, QtCore.SIGNAL('clicked()'), partial(turnOffServer, ui, videoButtons, ui.pushButton_20))
+    QtCore.QObject.connect(ui.pushButton_20, QtCore.SIGNAL('clicked()'), partial(stopServer, ui, videoButtons, ui.pushButton_20))
     QtCore.QObject.connect(ui.pushButton_18, QtCore.SIGNAL('clicked()'), partial(startStream, ui, videoButtons, ui.pushButton_18))
     QtCore.QObject.connect(ui.pushButton_19, QtCore.SIGNAL('clicked()'), partial(stopStream, ui, videoButtons, ui.pushButton_19))
 
@@ -169,7 +169,6 @@ def moveArm(side, ui):
      'gamma': gamma,
      'delta': delta})
 
-
 def moveFinger(side, finger, ui, buttons, btn):
     if finger == '01234':
         if btn.isChecked():
@@ -190,7 +189,6 @@ def moveFinger(side, finger, ui, buttons, btn):
         params = {'side': side,
          finger: state}
     client.steer('moveFinger', params)
-
 
 def selectFile(ui):
     pass
@@ -245,7 +243,6 @@ def connectServer(ui, param, buttons, btn):
                 ui.frame.setEnabled(False)
         for item in client.features['sensorList']:
             ui.listWidget.insertItem(0, str((item, client.features['sensorList'][item])))
-
 
 def setMovementWidgets(ui):
     serverType = client.features['serverType']
@@ -324,7 +321,8 @@ def stopStream(ui, buttons, btn, cameraIndex =-1):
         ui.videoDisplay[cameraIndex].stopVideoConnection()
         ui.videoDisplay[cameraIndex] = None
 
-def turnOffServer(ui, buttons, btn):
+def stopServer(ui, buttons, btn):
+    client.request("stopServer")
     pass
 
 

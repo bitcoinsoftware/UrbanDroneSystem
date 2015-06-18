@@ -1,4 +1,4 @@
-import argparse, DroneClient
+import argparse
 from gui import *
 from Connections import *
 

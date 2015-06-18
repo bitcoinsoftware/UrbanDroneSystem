@@ -1,7 +1,6 @@
 import telnetlib, sys, os, ast, threading, socket, numpy, cv2, select
 
 class Client:
-
     def __init__(self, ip, port,param):
         self.ip, self.port = ip, port
         print ip, port
@@ -28,7 +27,7 @@ class Client:
     def request(self, methodName, args ={'argument':None}, waitForConfiramtion = True):
         msgDict = {'request':methodName}
         msgDict.update(args)
-        self.tn.write(str(msgDict))
+        self.tn.write(str(msgDict)+"\n")
         data = None
         if waitForConfiramtion:
             while not data:
